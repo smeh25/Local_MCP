@@ -1,0 +1,43 @@
+<!--Build a Text Input UI-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CLI Assistant</title>
+</head>
+<body>
+  <h2>CLI Map Assistant</h2>
+  <form id="commandForm">
+    <input type="text" id="inputText" placeholder="Enter a command (e.g. 'make a folder called test')" size="50">
+    <button type="submit">Submit</button>
+  </form>
+
+  <h3>LLM Suggestion:</h3>
+  <pre id="suggestedCommand"></pre>
+
+  <h3>Output:</h3>
+  <pre id="commandOutput"></pre>
+
+  <script>
+    const form = document.getElementById('commandForm');
+    const input = document.getElementById('inputText');
+    const output = document.getElementById('commandOutput');
+    const suggestion = document.getElementById('suggestedCommand');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const query = input.value;
+
+      const res = await fetch('/suggest-and-run/', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ query })
+      });
+
+      const data = await res.json();
+      suggestion.innerText = data.suggested_command || data.error;
+      output.innerText = data.output || data.error;
+    });
+  </script>
+</body>
+</html>
