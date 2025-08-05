@@ -36,9 +36,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-def read_root():
-    return {"message": "CLI Map Assistant backend is running."}
+#@app.get("/")
+#def read_root():
+#    return {"message": "CLI Map Assistant backend is running."}
+
 
 @app.post("/suggest-command/")
 async def suggest_command(request: Request):
@@ -69,9 +70,6 @@ async def file_action(request: Request):
 
 
 #enabling the html page
-
-
-
 
 
 @app.get("/", response_class=HTMLResponse)
