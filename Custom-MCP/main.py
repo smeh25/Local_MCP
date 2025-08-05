@@ -1,15 +1,7 @@
-from fastapi import FastAPI, Request
+# load up this in the browser: http://127.0.0.1:8000/
+
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import subprocess
-import json
-from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from fastapi import Request
-
-
-from llm_handler import suggest_command_from_natural_language
-
 
 from modules import file_tools
 
