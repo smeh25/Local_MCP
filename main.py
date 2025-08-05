@@ -2,6 +2,10 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import subprocess
 import json
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi import Request
 
 
 from llm_handler import suggest_command_from_natural_language
@@ -18,6 +22,10 @@ from fastapi import Request
 
 
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
+
 
 # Allow frontend or curl to access this API (important for dev/testing)
 app.add_middleware(
@@ -62,12 +70,14 @@ async def file_action(request: Request):
 
 #enabling the html page
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
+
+
+
 
 @app.get("/", response_class=HTMLResponse)
 async def get_ui(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
+
 
 ##Update main.py With One Unified Endpoint
 
