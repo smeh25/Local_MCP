@@ -2,6 +2,8 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import subprocess
 import json
+from llm_handler import suggest_command_from_natural_language
+
 
 app = FastAPI()
 
